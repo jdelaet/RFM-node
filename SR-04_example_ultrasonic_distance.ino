@@ -230,7 +230,18 @@ void setup() {
     
     Serial.println(F("Starting ....."));
 
- 
+    // init the node
+    init_node();
+
+    // Start job
+    do_send(&sendjob);
+}
+
+void loop() {
+    os_runloop_once();
+}
+
+void init_node() {
  //   #ifdef VCC_ENABLE
  //   // For Pinoccio Scout boards
  //   pinMode(VCC_ENABLE, OUTPUT);
@@ -286,12 +297,4 @@ void setup() {
 
     // Set data rate and transmit power (note: txpow seems to be ignored by the library)
     LMIC_setDrTxpow(DR_SF7,14);
-
-    // Start job
-    do_send(&sendjob);
 }
-
-void loop() {
-    os_runloop_once();
-}
-
